@@ -15,4 +15,12 @@ public class Utils {
         ConfigurationInfo info = am.getDeviceConfigurationInfo();
         return info.reqGlEsVersion >= 0x20000;
     }
+
+    public static String currentGLVersion(Context context){
+        ActivityManager am = (ActivityManager)
+                context.getSystemService(Context.ACTIVITY_SERVICE);
+        ConfigurationInfo info = am.getDeviceConfigurationInfo();
+        String currentVersion = Integer.toHexString(info.reqGlEsVersion);
+        return currentVersion;
+    }
 }

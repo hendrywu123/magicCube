@@ -5,19 +5,46 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
+
+    private GLSurfaceView gl_view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GLSurfaceView gl_view = (GLSurfaceView)findViewById(R.id.gl_view);
-        gl_view.setRenderer(new OpenGLRenderer());
+        TextView txt_hint = (TextView)findViewById(R.id.txt_hint);
+        txt_hint.setText("current GL version: " + Utils.currentGLVersion(this));
+
+        initGLView();
     }
 
+    private void initGLView() {
+        if (Utils.has20GLSupport(this)) {
+            gl_view = (GLSurfaceView)findViewById(R.id.gl_view);
+            gl_view.setEGLContextClientVersion(2);
+            gl_view.setPreserveEGLContextOnPause(true);
+            gl_view.setRenderer(new GLES20Renderer());
+        } else {
+            // Time to get a new phone, OpenGL ES 2.0 not supported.
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        gl_view.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gl_view.onResume();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
