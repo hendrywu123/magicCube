@@ -8,7 +8,6 @@ package com.yanbin.magiccube;
  import javax.microedition.khronos.opengles.GL10;
 
  import android.opengl.GLSurfaceView.Renderer;
- import android.util.Log;
 
 public abstract class GLRenderer implements Renderer {
 
