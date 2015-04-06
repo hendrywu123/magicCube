@@ -14,7 +14,7 @@ public class GLES20Renderer extends GLRenderer {
                          boolean contextLost) {
         GLES20.glClearColor(0f, 0f, 0f, 1f);
         square = new Square();
-        square.setDrawMode(GLES20.GL_TRIANGLES);
+        //square.setDrawMode(GLES20.GL_TRIANGLE_STRIP);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class Square {
 
     private static final int COORDS_PER_VERTEX = 3;
     private static final int BYTES_PER_FLOAT = 4;
-    private static final int BYTES_PER_SHORT = 4;
+    private static final int BYTES_PER_SHORT = 2;
 
     private final int vertexStride = COORDS_PER_VERTEX *BYTES_PER_FLOAT;
     private final int vertexCount = squareCoords.length / COORDS_PER_VERTEX;
@@ -86,6 +86,6 @@ public class Square {
                 mDrawMode == GLES20.GL_TRIANGLES)
             GLES20.glDrawArrays(mDrawMode, 0, vertexCount);
         else
-            GLES20.glDrawElements(mDrawMode, drawOrder.length, GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
+            GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length, GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
     }
 }
