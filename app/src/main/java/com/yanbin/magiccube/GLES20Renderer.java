@@ -7,13 +7,14 @@ import android.opengl.GLES20;
 
 public class GLES20Renderer extends GLRenderer {
 
-    private Triangle triangle;
+    private Square square;
 
     @Override
     public void onCreate(int width, int height,
                          boolean contextLost) {
         GLES20.glClearColor(0f, 0f, 0f, 1f);
-        triangle = new Triangle();
+        square = new Square();
+        square.setDrawMode(GLES20.GL_TRIANGLES);
     }
 
     @Override
@@ -21,6 +22,6 @@ public class GLES20Renderer extends GLRenderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT
                 | GLES20.GL_DEPTH_BUFFER_BIT);
 
-        triangle.draw();
+        square.draw();
     }
 }
