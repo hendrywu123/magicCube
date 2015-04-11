@@ -46,10 +46,6 @@ public class GLES20Renderer extends GLRenderer {
 
         long time = SystemClock.uptimeMillis();
         float angle =  0.001f*((float) time);
-        Quaternion quaternion = new Quaternion();
-
-        quaternion.setRotation(1.0f, 0f, 0f,angle);
-        Matrix4 matrix4 = quaternion.toMatrix();
 
         Matrix.setRotateM(mRotationMatrix, 0, angle, 0, 0, -1.0f);
 
