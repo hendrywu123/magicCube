@@ -9,6 +9,7 @@ public class GLShaderFactory {
 
     public static final String FIELD_POSITION = "vPosition";
     public static final String FIELD_COLOR = "vColor";
+    public static final String FIELD_MATRIX_MVP = "uMVPMatrix";
 
     private static final String SHADER_CODE_VERTEX =
             "attribute vec4 " + FIELD_POSITION  + ";" +
@@ -23,12 +24,17 @@ public class GLShaderFactory {
             "   gl_FragColor = " + FIELD_COLOR + ";"  +
             "}";
 
-
+    private static final String SHADER_CODE_VERTEX_MVP =
+            "uniform mat4 " + FIELD_MATRIX_MVP + ";" +
+            "attribute vec4 " + FIELD_POSITION  + ";" +
+            "void main() {" +
+                    "  gl_Position = " + FIELD_MATRIX_MVP + " * " + FIELD_POSITION  + ";" +
+                    "}";
 
 
     public static int getDefaultShader(){
         GLShaderFactory shaderFactory = new GLShaderFactory();
-        return shaderFactory.createShaderProgram(SHADER_CODE_VERTEX, SHADER_CODE_FRAGMENT);
+        return shaderFactory.createShaderProgram(SHADER_CODE_VERTEX_MVP, SHADER_CODE_FRAGMENT);
     }
 
     private int loadShader(int type, String shaderCode){

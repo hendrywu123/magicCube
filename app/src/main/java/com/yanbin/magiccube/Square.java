@@ -15,6 +15,8 @@ public class Square {
     private FloatBuffer vertexBuffer;
     private ShortBuffer drawListBuffer;
 
+    private float[] mMVPMatrix;
+
     private static final int COORDS_PER_VERTEX = 3;
     private static final int BYTES_PER_FLOAT = 4;
     private static final int BYTES_PER_SHORT = 2;
@@ -63,17 +65,23 @@ public class Square {
         drawListBuffer.position(0);
     }
 
+    public void setmMVPMatrix(float[] matrix){
+        mMVPMatrix = matrix;
+    }
+
     public void draw(){
         GLES20.glUseProgram(mProgram);
 
         int positionHandle = GLES20.glGetAttribLocation(mProgram, GLShaderFactory.FIELD_POSITION);
         int colorHandle = GLES20.glGetUniformLocation(mProgram, GLShaderFactory.FIELD_COLOR);
+        int mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, GLShaderFactory.FIELD_MATRIX_MVP);
 
         GLES20.glEnableVertexAttribArray(positionHandle);
         GLES20.glVertexAttribPointer(positionHandle, COORDS_PER_VERTEX,
                 GLES20.GL_FLOAT, false, vertexStride, vertexBuffer);
 
         GLES20.glUniform4fv(colorHandle, 1, color, 0);
+        GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
 
         drawTriangles();
 
